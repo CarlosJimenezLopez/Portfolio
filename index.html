@@ -3,34 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Carlos Jiménez</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Portfolio de Carlos Jiménez López</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #ccc;
+      margin: 40px 0;
+    }
+
+    .slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding-bottom: 10px;
+    }
+
+    .slider img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .slider img:hover {
+      transform: scale(1.05);
+    }
+
+    a {
+      color: #4a90e2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Carlos Jiménez López</h1>
-    <nav>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-  </header>
 
-  <main>
-    <section id="proyectos">
-      <h2>Proyectos Destacados</h2>
-      <div class="container">
-        <!-- Aquí tus botones/tarjetas -->
-      </div>
-    </section>
+<header>
+  <h1>Portfolio de Carlos Jiménez López</h1>
+  <p>¡Hola! 👋 Soy <strong>Carlos Jiménez</strong>, desarrollador web apasionado por crear experiencias digitales atractivas.</p>
+</header>
 
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <a href="mailto:c.jimenezl.2020@alumnos.urjc.es">Enviar correo</a>
-    </section>
-  </main>
+<main>
+  <section>
+    <h2>Proyectos Destacados</h2>
 
-  <footer>
-    <p>© 2026 Carlos Jiménez López</p>
-  </footer>
+    <!-- Ace Voyage -->
+    <hr>
+    <h3>1️⃣ Ace Voyage</h3>
+    <p>Juego de aventuras con mecánicas de exploración y misiones.</p>
+    <p>
+      <a href="https://link-al-demo.com">Demo en vivo</a> |
+      <a href="https://github.com/carlosjimenezlopez/ace-voyage">Repositorio GitHub</a>
+    </p>
+    <div class="slider">
+      <img src="https://via.placeholder.com/300x200?text=Ace+Voyage+1" alt="Ace Voyage 1">
+      <img src="https://via.placeholder.com/300x200?text=Ace+Voyage+2" alt="Ace Voyage 2">
+      <img src="https://via.placeholder.com/300x200?text=Ace+Voyage+3" alt="Ace Voyage 3">
+    </div>
+
+    <!-- Proyecto 2 -->
+    <hr>
+    <h3>2️⃣ Proyecto 2</h3>
+    <p>Breve descripción de tu segundo proyecto.</p>
+    <p>
+      <a href="#">Demo en vivo</a> |
+      <a href="#">Repositorio GitHub</a>
+    </p>
+    <div class="slider">
+      <img src="https://via.placeholder.com/300x200?text=Proyecto2+1" alt="Proyecto 2 - 1">
+      <img src="https://via.placeholder.com/300x200?text=Proyecto2+2" alt="Proyecto 2 - 2">
+    </div>
+
+    <!-- Proyecto 3 -->
+    <hr>
+    <h3>3️⃣ Proyecto 3</h3>
+    <p>Breve descripción de tu tercer proyecto.</p>
+    <p>
+      <a href="#">Demo en vivo</a> |
+      <a href="#">Repositorio GitHub</a>
+    </p>
+    <div class="slider">
+      <img src="https://via.placeholder.com/300x200?text=Proyecto3+1" alt="Proyecto 3 - 1">
+      <img src="https://via.placeholder.com/300x200?text=Proyecto3+2" alt="Proyecto 3 - 2">
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Contacto</h2>
+    <ul>
+      <li>Email: tuemail@example.com</li>
+      <li>LinkedIn: <a href="#">linkedin.com/in/tu-perfil</a></li>
+      <li>GitHub: <a href="https://github.com/carlosjimenezlopez">github.com/carlosjimenezlopez</a></li>
+    </ul>
+  </section>
+</main>
+
 </body>
 </html>
