@@ -3,163 +3,359 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carlos Jiménez López Portfolio</title>
+  <title>Carlos Jiménez López - Game Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
   <style>
+    /* VARIABLES DE COLOR - Estilo Tech/Dark */
+    :root {
+      --bg-color: #0d1117; /* Fondo casi negro */
+      --container-bg: #161b22; /* Fondo de tarjetas */
+      --text-main: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent-color: #58a6ff; /* Azul eléctrico neón */
+      --accent-glow: rgba(88, 166, 255, 0.3);
+      --border-color: #30363d;
+      --font-titles: 'Rajdhani', sans-serif;
+      --font-body: 'Open Sans', sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+      font-family: var(--font-body);
+      line-height: 1.8;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
-      color: #333;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      /* Patrón de fondo sutil tipo cuadrícula de ingeniería */
+      background-image: 
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+      background-size: 50px 50px;
     }
 
+    /* HEADER - Estilo Hero Section */
     header {
-      background-color: #4a90e2;
-      color: white;
-      padding: 30px 20px;
+      background: linear-gradient(135deg, #1f2937 0%, #0d1117 100%);
+      padding: 60px 20px;
       text-align: center;
+      border-bottom: 2px solid var(--accent-color);
+      box-shadow: 0 4px 20px var(--accent-glow);
     }
 
-    h1, h2, h3 {
+    h1 {
+      font-family: var(--font-titles);
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: white;
+      text-shadow: 0 0 10px var(--accent-color);
+    }
+
+    header p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 10px auto;
+      font-size: 1.1rem;
+    }
+
+    header strong {
+      color: var(--accent-color);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      padding-bottom: 40px;
+    }
+
+    h2 {
+      font-family: var(--font-titles);
+      font-size: 2.2rem;
+      border-left: 4px solid var(--accent-color);
+      padding-left: 15px;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    h3 {
+      font-family: var(--font-titles);
+      font-size: 1.8rem;
+      color: white;
       margin-top: 0;
     }
 
-    main {
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 20px;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border-radius: 8px;
+    /* ESTILO DE TARJETAS DE PROYECTO */
+    .project-card {
+      background-color: var(--container-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* Efecto hover en la tarjeta */
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-color);
+      box-shadow: 0 5px 15px var(--accent-glow);
+    }
+
+    /* Separador antiguo eliminado visualmente, usado para espaciado */
     hr {
-      border: 0;
-      height: 1px;
-      background: #ccc;
-      margin: 40px 0;
+      display: none;
     }
 
+    /* DESCRIPCIÓN DEL PROYECTO */
+    .project-description {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    /* BOTONES DE ENLACE - Estilo UI de Juego */
+    .project-links {
+      margin-bottom: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .project-links a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: transparent;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: bold;
+      font-family: var(--font-titles);
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    .project-links a:hover {
+      background-color: var(--accent-color);
+      color: var(--bg-color);
+      box-shadow: 0 0 10px var(--accent-color);
+    }
+
+    /* Enlace de fecha de lanzamiento (no clicable) */
+    .project-links span.release-date {
+      color: var(--text-secondary);
+      padding: 10px 0;
+      font-style: italic;
+    }
+
+    /* SLIDER DE IMÁGENES REVISIONADO */
     .slider {
       display: flex;
       overflow-x: auto;
-      gap: 10px;
-      padding-bottom: 10px;
+      gap: 15px;
+      padding-bottom: 15px;
+      /* Scrollbar estilizado para navegadores basados en Webkit */
+    }
+
+    .slider::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .slider::-webkit-scrollbar-track {
+      background: var(--bg-color);
+      border-radius: 4px;
+    }
+
+    .slider::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .slider::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-color);
     }
 
     .slider img {
-      width: 300px;
-      height: 200px;
+      width: 320px;
+      height: 180px; /* Relación de aspecto 16:9 más cinemática */
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 6px;
       flex-shrink: 0;
-      transition: transform 0.3s;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
     }
 
     .slider img:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
+      border-color: var(--accent-color);
     }
 
-    a {
-      color: #4a90e2;
+    /* SECCIÓN DE CONTACTO */
+    .contact-section {
+      background-color: var(--container-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .contact-list li {
+      background: rgba(255,255,255,0.03);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: 0.3s;
+    }
+    
+    .contact-list li:hover {
+        border-color: var(--border-color);
+        background: rgba(255,255,255,0.05);
+    }
+
+    .contact-list strong {
+      color: white;
+      display: block;
+      margin-bottom: 5px;
+      font-family: var(--font-titles);
+      text-transform: uppercase;
+      color: var(--accent-color);
+    }
+
+    .contact-list a {
+      color: var(--text-main);
       text-decoration: none;
-      font-weight: bold;
+      word-break: break-all; /* Para emails largos en móvil */
     }
 
-    a:hover {
+    .contact-list a:hover {
+      color: var(--accent-color);
       text-decoration: underline;
     }
 
-    section {
-      margin-bottom: 40px;
+    /* RESPONSIVE BÁSICO */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.2rem; }
+      .slider img { width: 260px; height: 146px; }
+      .project-card { padding: 20px; }
     }
-
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Carlos Jiménez López</h1>
-    <div style="margin: 20px 0;">
+  <div style="margin-bottom: 20px;">
     <img src="Images/PersonalPhoto.png" alt="Foto de Carlos" 
-         style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid white;">
+         style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent-color); box-shadow: 0 0 15px var(--accent-glow);">
   </div>
-<p>Hello! 👋
-</p>
+  <h1>Carlos Jiménez López</h1>
+  <p>Hello! 👋</p>
   <p>I'm <strong>Carlos Jiménez</strong>, a video game designer and developer.</p>
-  <p>I completed a double degree in Video
-  Game Design and Development and Computer Engineering at Rey Juan Carlos University. I also hold a Master's degree in Video Game Design from Universidad Europea.</p>
+  <p>I completed a double degree in Video Game Design and Development and Computer Engineering at Rey Juan Carlos University. I also hold a Master's degree in Video Game Design from Universidad Europea.</p>
 </header>
 
 <main>
   <section>
     <h2>Featured Projects</h2>
 
-    <!-- Ace Voyage -->
-    <hr>
-    <h3>1️⃣ Ace Voyage</h3>
-    <p>Ace Voyage is an action‑puzzle adventure where you step into the role of Patt, an aircraft pilot whose mission is abruptly interrupted after a forced landing.
-      Stranded and with his plane in pieces, he must venture across a variety of distinct biomes to recover the scattered components of his aircraft,
-      all while facing enemies that challenge him throughout the journey.</p>
-    <p>
-      <a href="https://chupchupstudios.itch.io/ace-voyage">Try it out.</a> |
-      <a href="https://github.com/carlosjimenezlopez/ace-voyage">GitHub repository</a>
-    </p>
-    <div class="slider">
-      <img src="Images/AceVoyageMenu.jpeg" alt="Ace Voyage 1">
-      <img src="Images/AceVoyageGameplay.jpeg" alt="Ace Voyage 2">
-      <img src="Images/AceVoyageGameplay2.jpeg" alt="Ace Voyage 3">
+    <div class="project-card">
+      <hr>
+      <h3>1️⃣ Ace Voyage</h3>
+      <p class="project-description">Ace Voyage is an action‑puzzle adventure where you step into the role of Patt, an aircraft pilot whose mission is abruptly interrupted after a forced landing.
+        Stranded and with his plane in pieces, he must venture across a variety of distinct biomes to recover the scattered components of his aircraft,
+        all while facing enemies that challenge him throughout the journey.</p>
+      
+      <div class="project-links">
+        <a href="https://chupchupstudios.itch.io/ace-voyage" target="_blank">🎮 Play on Itch.io</a>
+        <a href="https://github.com/carlosjimenezlopez/ace-voyage" target="_blank">💻 GitHub Code</a>
+      </div>
+
+      <div class="slider">
+        <img src="Images/AceVoyageMenu.jpeg" alt="Ace Voyage Main Menu">
+        <img src="Images/AceVoyageGameplay.jpeg" alt="Ace Voyage Gameplay Biome 1">
+        <img src="Images/AceVoyageGameplay2.jpeg" alt="Ace Voyage Gameplay Combat">
+      </div>
     </div>
 
-    <!-- Proyecto 2 -->
-    <hr>
-    <h3>2️⃣ Prehistoric Trial </h3>
-    <p>Prehistoric Trial is a serious game designed to serve as a foundation for administering
-      validated psychological tests to students. The goal is to allow players to engage with the experience naturally,
-      keeping them immersed in the game world while reducing the awareness that they are being evaluated.</p>
-    <p>
-      <a href="https://carlosjimenezlopez.itch.io/prehistoric-trial">Try it out.</a> |
-      <a href="https://github.com/CarlosJimenezLopez/TFG-Bullying">GitHub repository</a>
-    </p>
-    <div class="slider">
-      <img src="Images/PrehistoricTrial1.png" alt="Prehistoric Trial 1">
-      <img src="Images/PrehistoricTrial2.png" alt="Prehistoric Trial 2">
-      <img src="Images/PrehistoricTrial3.png" alt="Prehistoric Trial 3">
+    <div class="project-card">
+      <hr>
+      <h3>2️⃣ Prehistoric Trial</h3>
+      <p class="project-description">Prehistoric Trial is a serious game designed to serve as a foundation for administering
+        validated psychological tests to students. The goal is to allow players to engage with the experience naturally,
+        keeping them immersed in the game world while reducing the awareness that they are being evaluated.</p>
+      
+      <div class="project-links">
+        <a href="https://carlosjimenezlopez.itch.io/prehistoric-trial" target="_blank">🎮 Try it out</a>
+        <a href="https://github.com/CarlosJimenezLopez/TFG-Bullying" target="_blank">💻 GitHub Repository</a>
+      </div>
+
+      <div class="slider">
+        <img src="Images/PrehistoricTrial1.png" alt="Prehistoric Trial Screenshot 1">
+        <img src="Images/PrehistoricTrial2.png" alt="Prehistoric Trial Screenshot 2">
+        <img src="Images/PrehistoricTrial3.png" alt="Prehistoric Trial Screenshot 3">
+      </div>
     </div>
 
-    <!-- Proyecto 3 -->
-    <hr>
-    <h3>3️⃣ BraveSkull: Sealbound </h3>
-    <p>BraveSkull: Sealbound is a first‑person puzzle game where you take on the role of a skeleton summoned by a necromancer.
-      Rather than serving his master, the protagonist attempts to escape, navigating a series of rooms and obstacles scattered throughout the necromancer’s castle.
-      To succeed, he learns and wields magical runes—powers that allow him to bend the physical laws of objects and the world itself—using them to reshape his surroundings,
-      solve puzzles, and ultimately break free.</p>
-    <p>
-      <a href="#">Release date: September 2026</a>
-    </p>
-    <div class="slider">
-      <img src="Images/SkullBound1.png" alt="BraveSkull pototype 1">
-      <img src="Images/SkullBound2.png" alt="BraveSkull pototype 2">
-      <img src="Images/SkullBound3.png" alt="BraveSkull pototype 3">
+    <div class="project-card">
+      <hr>
+      <h3>3️⃣ BraveSkull: Sealbound</h3>
+      <p class="project-description">BraveSkull: Sealbound is a first‑person puzzle game where you take on the role of a skeleton summoned by a necromancer.
+        Rather than serving his master, the protagonist attempts to escape, navigating a series of rooms and obstacles scattered throughout the necromancer’s castle.
+        To succeed, he learns and wields magical runes—powers that allow him to bend the physical laws of objects and the world itself—using them to reshape his surroundings,
+        solve puzzles, and ultimately break free.</p>
+      
+      <div class="project-links">
+        <span class="release-date">📅 Release date: September 2026</span>
+      </div>
+
+      <div class="slider">
+        <img src="Images/SkullBound1.png" alt="BraveSkull prototype environment">
+        <img src="Images/SkullBound2.png" alt="BraveSkull puzzle mechanic">
+        <img src="Images/SkullBound3.png" alt="BraveSkull rune system">
+      </div>
     </div>
 
   </section>
 
-  <section>
+  <section class="contact-section">
     <h2>Contact information</h2>
-    <ul>
-      <li>Email: c.jimenezl.2020@alumnos.urjc.es</li>
-      <li>LinkedIn: <a href="https://www.linkedin.com/in/carlos-jiménez-9a57511ba/">linkedin.com/in/carlos-jiménez-9a57511ba</a></li>
-      <li>GitHub: <a href="https://github.com/carlosjimenezlopez">github.com/carlosjimenezlopez</a></li>
-      <li>CV: <a href="Video games CV.pdf">Video games CV</a></li>
+    <ul class="contact-list">
+      <li>
+        <strong>📧 Email</strong>
+        <a href="mailto:c.jimenezl.2020@alumnos.urjc.es">c.jimenezl.2020@alumnos.urjc.es</a>
+      </li>
+      <li>
+        <strong>🔗 LinkedIn</strong>
+        <a href="https://www.linkedin.com/in/carlos-jiménez-9a57511ba/" target="_blank">linkedin.com/in/carlos-jiménez</a>
+      </li>
+      <li>
+        <strong>🐙 GitHub</strong>
+        <a href="https://github.com/carlosjimenezlopez" target="_blank">github.com/carlosjimenezlopez</a>
+      </li>
+      <li>
+        <strong>📄 Curriculum Vitae</strong>
+        <a href="Video games CV.pdf" target="_blank">Download Video games CV (PDF)</a>
+      </li>
     </ul>
   </section>
 </main>
 
 </body>
 </html>
-
-
-
-
