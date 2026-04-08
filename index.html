@@ -3,235 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlos Jiménez — Game Developer & Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Carlos Jiménez — Architect of Interactive Worlds</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #07090d;
-            --bg2: #0b0f16;
-            --bg3: #10151e;
-            --bg4: #151c27;
-            --accent: #00d4ff;
-            --accent2: #ff4d6d;
-            --gold: #f0c040;
-            --text: #dde6f0;
-            --muted: #5a7080;
-            --border: rgba(0, 212, 255, 0.12);
+            /* Paleta: Oscura, Oro, Carmesí */
+            --bg-deep: #0f1114; /* Casi negro, tono pizarra */
+            --bg-card: #16181c;
+            --text-main: #e0e2e6;
+            --text-muted: #80868f;
+            --accent-gold: #c5a059; /* Oro viejo/Bronce */
+            --accent-gold-dim: rgba(197, 160, 89, 0.1);
+            --accent-crimson: #a3333d; /* Rojo carmesí para interacciones */
+            --border: #2a2e35;
+            --font-title: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
-        
-        /* Grano de película sutil */
-        body::after {
-            content: ''; position: fixed; inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: 2000; opacity: .5;
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-main); 
+            font-family: var(--font-body); 
+            font-weight: 300; 
+            overflow-x: hidden; 
+            display: flex; /* Para el layout lateral */
         }
 
-        /* CURSOR PERSONALIZADO */
-        .cursor { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: screen; transition: width .15s, height .15s; }
-        .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(0, 212, 255, .4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width .2s, height .2s; }
+        /* --- EFECTO NUEVO: FONDO PARALLAX --- */
+        .bg-shapes {
+            position: fixed; inset: 0; z-index: -1;
+            background-image: 
+                radial-gradient(circle at 10% 10%, var(--accent-gold-dim) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(163, 51, 61, 0.05) 0%, transparent 30%);
+            opacity: 0.6;
+        }
 
-        /* NAV */
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 800; display: flex; align-items: center; justify-content: space-between; padding: 22px 64px; background: linear-gradient(to bottom, rgba(7, 9, 13, .96) 0%, transparent 100%); backdrop-filter: blur(12px); }
-        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 4px; color: var(--accent); text-decoration: none; }
-        .nav-center { display: flex; gap: 36px; list-style: none; }
-        .nav-center a { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; position: relative; }
-        .nav-center a:hover { color: var(--accent); }
-
-        /* HERO */
-        #hero { min-height: 100vh; display: grid; place-items: center; position: relative; overflow: hidden; padding: 140px 64px 100px; }
-        .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0, 212, 255, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, .035) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%); }
-        .hero-orb { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0, 212, 255, .07) 0%, transparent 65%); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: orb 5s ease-in-out infinite; }
+        /* --- NAVEGACIÓN LATERAL (CAMBIO DE ESTRUCTURA) --- */
+        nav { 
+            position: fixed; top: 0; left: 0; bottom: 0;
+            width: 260px; background-color: var(--bg-card);
+            border-right: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            padding: 50px 30px; z-index: 1000;
+        }
+        .nav-header { margin-bottom: 60px; }
+        .nav-logo { font-family: var(--font-title); font-weight: 800; font-size: 28px; color: var(--accent-gold); text-decoration: none; letter-spacing: -1px; }
+        .nav-logo span { color: var(--text-main); }
         
-        @keyframes orb { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .7; } 50% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; } }
+        .nav-links { list-style: none; flex: 1; }
+        .nav-links li { margin-bottom: 25px; }
+        .nav-links a { 
+            font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 10px;
+            transition: 0.3s;
+        }
+        .nav-links a::before { content: ''; width: 0; height: 1px; background: var(--accent-crimson); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--text-main); padding-left: 10px; }
+        .nav-links a:hover::before { width: 15px; }
 
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; }
-        .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
-        .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 10vw, 130px); line-height: .88; letter-spacing: 6px; color: #fff; }
-        .hero-roles { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
-        .role-chip { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border: 1px solid var(--border); color: var(--muted); background: rgba(0, 212, 255, .025); }
+        .nav-footer { font-family: var(--font-mono); font-size: 10px; color: #444; }
 
-        /* SECCIONES */
-        .s-wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
-        .s-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-        .s-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 70px); letter-spacing: 3px; color: var(--text); margin-bottom: 50px; }
+        /* --- CONTENIDO PRINCIPAL (AJUSTE LAYOUT) --- */
+        main { flex: 1; margin-left: 260px; width: calc(100% - 260px); }
+        section { padding: 100px 80px; border-bottom: 1px solid var(--border); }
 
-        /* PROYECTO DESTACADO (ACE VOYAGE) */
-        .proj-featured { background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 100px; }
-        .v-hero { width: 100%; aspect-ratio: 21/9; background: #000; overflow: hidden; position: relative; }
-        .proj-body { padding: 60px 64px; max-width: 1280px; margin: 0 auto; }
-        .proj-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
-        .proj-title { font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: #fff; line-height: 1; }
+        /* --- ESTILOS DE TÍTULOS (NUEVA TIPOGRAFÍA) --- */
+        .s-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 4px; color: var(--accent-gold); margin-bottom: 15px; display: block; }
+        .s-title { font-family: var(--font-title); font-weight: 800; font-size: clamp(40px, 5vw, 65px); line-height: 0.95; color: #fff; letter-spacing: -2px; }
         
-        /* REJILLA OTROS PROYECTOS */
-        .other-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); }
-        .other-card { background: var(--bg); padding: 40px; }
-        .v-card { aspect-ratio: 16/9; background: var(--bg4); margin-bottom: 24px; border-radius: 2px; overflow: hidden; }
-        .v-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s; }
-        .v-card:hover img { opacity: 1; transform: scale(1.05); }
+        /* --- HERO SECTION --- */
+        #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .hero-statement { max-width: 800px; margin-top: 40px; font-size: 19px; line-height: 1.8; color: var(--text-muted); }
+        .hero-statement strong { color: var(--text-main); font-weight: 600; }
+        .hero-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 50px; }
+        .chip { padding: 8px 18px; border: 1px solid var(--border); font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold); text-transform: uppercase; background: rgba(255,255,255,0.01); }
 
-        /* SKILLS & CONTACT */
-        .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; margin-top: 60px; }
-        .sk-pill { display: inline-block; padding: 6px 14px; border: 1px solid var(--border); font-size: 12px; margin: 0 4px 8px 0; font-family: 'JetBrains Mono'; }
+        /* --- PROYECTOS (ESTILO TARJETA REVISADO) --- */
+        .project-featured { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; margin-top: 80px; }
+        .p-media { aspect-ratio: 16/10; background: #000; border-radius: 4px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+        .p-media img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+        .p-media:hover img { opacity: 1; transform: scale(1.03); }
+        .p-tag { position: absolute; top: 15px; right: 15px; font-family: var(--font-mono); font-size: 9px; color: #000; background: var(--accent-gold); padding: 4px 10px; }
         
-        .contact-link { font-family: 'Bebas Neue'; font-size: 50px; color: var(--text); text-decoration: none; transition: 0.3s; }
-        .contact-link:hover { color: var(--accent); padding-left: 20px; }
+        .p-title { font-family: var(--font-title); font-weight: 600; font-size: 36px; color: #fff; margin-bottom: 20px; letter-spacing: -1px; }
+        .p-desc { color: var(--text-muted); line-height: 1.9; font-size: 15px; margin-bottom: 30px; }
+        .btn-link { font-family: var(--font-mono); font-size: 11px; color: var(--accent-crimson); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; transition: 0.3s; }
+        .btn-link:hover { color: var(--text-main); padding-left: 5px; }
 
-        @media (max-width: 900px) {
-            .other-grid, .about-grid { grid-template-columns: 1fr; }
-            nav { padding: 20px; }
-            .s-wrap, .proj-body { padding: 40px 20px; }
+        .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 80px; }
+        .project-card { background: var(--bg-card); padding: 40px; border: 1px solid var(--border); transition: 0.3s; }
+        .project-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
+
+        /* --- ESTUDIOS (NUEVO ESTILO TIMELINE) --- */
+        .timeline { margin-top: 60px; max-width: 800px; }
+        .tl-item { display: flex; gap: 30px; margin-bottom: 40px; position: relative; }
+        .tl-item::before { content: ''; position: absolute; left: 22px; top: 40px; bottom: -40px; width: 1px; background: var(--border); }
+        .tl-item:last-child::before { display: none; }
+        
+        .tl-icon { width: 45px; height: 45px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent-gold); flex-shrink: 0; z-index: 2; }
+        .tl-content h4 { font-family: var(--font-title); font-size: 20px; color: #fff; margin-bottom: 5px; }
+        .tl-inst { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
+        .tl-date { font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold); background: var(--accent-gold-dim); padding: 3px 8px; display: inline-block; }
+
+        /* --- CONTACTO & STACK (ORO & ROJO) --- */
+        .stack-group { margin-top: 20px; }
+        .stack-item { display: inline-block; font-family: var(--font-mono); font-size: 12px; color: var(--text-main); margin-right: 15px; margin-bottom: 10px; }
+        .stack-item strong { color: var(--accent-gold); font-weight: 400; }
+
+        .contact-cta { font-family: var(--font-title); font-weight: 800; font-size: clamp(30px, 4vw, 50px); color: var(--text-main); text-decoration: none; transition: 0.3s; display: inline-block; margin-top: 20px; letter-spacing: -2px;}
+        .contact-cta:hover { color: var(--accent-crimson); transform: skewX(-5deg); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1100px) {
+            nav { width: 70px; padding: 30px 15px; align-items: center; }
+            .nav-header, .nav-links a span, .nav-footer { display: none; }
+            .nav-logo { font-size: 20px; }
+            main { margin-left: 70px; width: calc(100% - 70px); }
+            section { padding: 60px 30px; }
+            .project-featured { grid-template-columns: 1fr; gap: 30px; }
+        }
+        @media (max-width: 700px) {
+            .projects-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="ring"></div>
+<div class="bg-shapes" id="parallax-bg"></div>
 
 <nav>
-    <a href="#" class="nav-logo">CJL</a>
-    <ul class="nav-center">
-        <li><a href="#projects">Proyectos</a></li>
-        <li><a href="#about">Perfil</a></li>
-        <li><a href="#contact">Contacto</a></li>
+    <div class="nav-header">
+        <a href="#" class="nav-logo"><span>C</span>JL</a>
+        <div style="font-family:var(--font-mono); font-size:9px; color:var(--text-muted); margin-top:5px;">Architect of Interactive Worlds</div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#hero"><span>Inicio</span></a></li>
+        <li><a href="#projects"><span>Proyectos</span></a></li>
+        <li><a href="#about"><span>Perfil</span></a></li>
+        <li><a href="#contact"><span>Contacto</span></a></li>
     </ul>
-    <div style="font-family:'JetBrains Mono'; font-size:10px; color:var(--accent)">REV. 2026</div>
+    <div class="nav-footer">
+        © 2026 / CJL
+    </div>
 </nav>
 
-<section id="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-orb"></div>
-    <div class="hero-content">
-        <div class="hero-eyebrow">// Game Designer & Software Engineer</div>
-        <h1 class="hero-name">CARLOS<br>JIMÉNEZ LÓPEZ</h1>
-        <div class="hero-roles">
-            <span class="role-chip">Unity & C#</span>
-            <span class="role-chip">Unreal Engine 5</span>
-            <span class="role-chip">Technical Design</span>
-            <span class="role-chip">Serious Games</span>
-        </div>
-        <p style="color:var(--muted); margin-top:30px; max-width:600px; margin-left:auto; margin-right:auto; line-height:1.8;">
-            Ingeniero Informático y Diseñador de Videojuegos especializado en la creación de mecánicas sistémicas y experiencias inmersivas. Formado en la <strong>URJC</strong> y la <strong>Universidad Europea</strong>.
+<main>
+    <section id="hero">
+        <span class="s-label">// System Designer & Engineer</span>
+        <h1 class="s-title glitch-text" data-text="CARLOS JIMÉNEZ">CARLOS JIMÉNEZ</h1>
+        <p class="hero-statement">
+            Ingeniero Informático y Diseñador de Videojuegos enfocado en la <strong>arquitectura de sistemas de juego complejos</strong> y mecánicas inmersivas. Formación avanzada en la URJC y la Universidad Europea.
         </p>
-    </div>
-</section>
-
-<section id="projects">
-    <div class="proj-featured">
-        <div class="v-hero">
-            <img src="Images/AceVoyageMenu.jpeg" style="width:100%; height:100%; object-fit:cover; opacity:0.6;" alt="Ace Voyage">
-            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
-                <span style="font-family:'JetBrains Mono'; color:var(--accent); letter-spacing:5px;">[ FEATURED PROJECT ]</span>
-            </div>
+        <div class="hero-chips">
+            <span class="chip">Unity 3D / C#</span>
+            <span class="chip">UE5 / Blueprints</span>
+            <span class="chip">System Architecture</span>
+            <span class="chip">UX Research</span>
         </div>
-        <div class="proj-body">
-            <div class="proj-header">
-                <div>
-                    <div class="s-label">// 01</div>
-                    <div class="proj-title">ACE VOYAGE</div>
-                </div>
-                <div style="text-align:right">
-                    <div class="sk-pill" style="border-color:var(--accent); color:var(--accent)">Action-Puzzle</div>
-                    <div style="font-family:'JetBrains Mono'; font-size:11px; margin-top:10px; color:var(--muted)">Released 2024</div>
-                </div>
-            </div>
-            <p style="max-width:800px; color:var(--muted); line-height:1.9; font-size:15px;">
-                Aventura de acción y puzzles donde el jugador controla a Patt, un piloto varado en biomas alienígenas. 
-                Desarrollado con un enfoque en la <strong>progresión de mecánicas</strong> y narrativa ambiental. Recupera las piezas de tu nave mientras enfrentas ecosistemas hostiles.
-            </p>
-            <div style="margin-top:30px; display:flex; gap:20px;">
-                <a href="https://chupchupstudios.itch.io/ace-voyage" class="sk-pill" style="text-decoration:none; color:#fff">ITCH.IO</a>
-                <a href="https://github.com/carlosjimenezlopez/ace-voyage" class="sk-pill" style="text-decoration:none; color:#fff">SOURCE CODE</a>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <div class="other-grid">
-        <div class="other-card">
-            <div class="v-card">
-                <img src="Images/SkullBound1.png" alt="BraveSkull">
-            </div>
-            <div class="s-label">// 02 — In Development</div>
-            <h3 style="font-family:'Bebas Neue'; font-size:32px; letter-spacing:2px; margin:10px 0;">BRAVESKULL: SEALBOUND</h3>
-            <p style="color:var(--muted); font-size:14px; line-height:1.7;">
-                Puzzle en primera persona. Manipulación de leyes físicas mediante runas mágicas en un entorno 3D dinámico.
-            </p>
-            <div style="margin-top:20px; font-family:'JetBrains Mono'; font-size:11px; color:var(--accent2);">Lanzamiento Septiembre 2026</div>
-        </div>
+    <section id="projects">
+        <span class="s-label">// Portafolio Seleccionado</span>
+        <h2 class="s-title">SELECTED WORKS</h2>
 
-        <div class="other-card">
-            <div class="v-card">
-                <img src="Images/PrehistoricTrial1.png" alt="Prehistoric Trial">
+        <div class="project-featured">
+            <div class="p-media">
+                <img src="Images/AceVoyageMenu.jpeg" alt="Ace Voyage">
+                <span class="p-tag">Acción-Puzzle</span>
             </div>
-            <div class="s-label">// 03 — Serious Game</div>
-            <h3 style="font-family:'Bebas Neue'; font-size:32px; letter-spacing:2px; margin:10px 0;">PREHISTORIC TRIAL</h3>
-            <p style="color:var(--muted); font-size:14px; line-height:1.7;">
-                Investigación de "Stealth Assessment" para la evaluación psicológica de estudiantes mediante gameplay orgánico.
-            </p>
-            <div style="margin-top:20px;">
-                <a href="https://github.com/CarlosJimenezLopez/TFG-Bullying" style="color:var(--accent); font-family:'JetBrains Mono'; font-size:11px; text-decoration:none;">VIEW REPOSITORY →</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="about" class="s-wrap" style="padding:100px 0;">
-    <div class="s-label">// Profile</div>
-    <h2 class="s-title">ESTUDIOS & STACK</h2>
-    
-    <div class="about-grid">
-        <div style="color:var(--muted); font-size:16px; line-height:2;">
-            <p>Con un perfil híbrido entre la <strong>Ingeniería Informática</strong> y el <strong>Diseño de Videojuegos</strong>, enfoco mi trabajo en la creación de sistemas de juego sólidos y optimizados.</p>
-            
-            <div style="margin-top:40px;">
-                <div style="font-family:'JetBrains Mono'; font-size:12px; color:var(--accent); margin-bottom:20px;">FORMACIÓN ACADÉMICA</div>
-                <div style="border-left: 2px solid var(--border); padding-left:20px;">
-                    <p style="color:#fff; margin-bottom:5px;">Máster en Diseño de Videojuegos</p>
-                    <p style="font-size:13px; margin-bottom:20px;">Universidad Europea</p>
-                    
-                    <p style="color:#fff; margin-bottom:5px;">Doble Grado en Diseño de Videojuegos e Ingeniería Informática</p>
-                    <p style="font-size:13px;">Universidad Rey Juan Carlos</p>
+            <div class="p-content">
+                <h3 class="p-title">Ace Voyage</h3>
+                <p class="p-desc">
+                    Diseño y desarrollo completo de una aventura donde la progresión se basa en la recuperación de mecánicas sistémicas. Explora biomas hostiles y repara tu nave.
+                </p>
+                <div style="display:flex; gap:20px;">
+                    <a href="https://chupchupstudios.itch.io/ace-voyage" class="btn-link">🎮 Jugar</a>
+                    <a href="https://github.com/carlosjimenezlopez/ace-voyage" class="btn-link">💻 Código</a>
                 </div>
             </div>
         </div>
 
-        <div>
-            <div class="s-label" style="font-size:9px;">TECH STACK</div>
-            <div style="margin-top:20px;">
-                <span class="sk-pill">Unity 3D</span><span class="sk-pill">C#</span>
-                <span class="sk-pill">Unreal Engine 5</span><span class="sk-pill">Blueprints</span>
-                <span class="sk-pill">C++</span><span class="sk-pill">Git / GitHub</span>
-                <span class="sk-pill">Level Design</span><span class="sk-pill">UX Research</span>
-                <span class="sk-pill">System Design</span>
+        <div class="projects-grid">
+            <div class="project-card">
+                <span class="p-tag" style="position:static; display:inline-block; margin-bottom:15px;">Fantasía Oscura</span>
+                <h3 class="p-title" style="font-size:26px;">BraveSkull: Sealbound</h3>
+                <p class="p-desc" style="font-size:14px;">First-person puzzle enfocado en la manipulación física mediante runas. Arquitectura de puzles basados en tamaño, tiempo y gravedad.</p>
+                <span style="font-family:var(--font-mono); font-size:11px; color:var(--accent-crimson);">Lanzamiento Sept. 2026</span>
+            </div>
+            <div class="project-card">
+                <span class="p-tag" style="position:static; display:inline-block; margin-bottom:15px;">Serious Game</span>
+                <h3 class="p-title" style="font-size:26px;">Prehistoric Trial</h3>
+                <p class="p-desc" style="font-size:14px;">Investigación e implementación de "Stealth Assessment" para la evaluación psicológica orgánica de estudiantes.</p>
+                <a href="https://github.com/CarlosJimenezLopez/TFG-Bullying" class="btn-link">Repositorio →</a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="contact" class="s-wrap" style="padding-bottom:150px;">
-    <div class="s-label">// Get in touch</div>
-    <h2 class="s-title">TRABAJEMOS<br>JUNTOS</h2>
-    <a href="mailto:c.jimenezl.2020@alumnos.urjc.es" class="contact-link">c.jimenezl.2020@alumnos.urjc.es</a>
-    
-    <div style="margin-top:60px; display:flex; gap:30px;">
-        <a href="https://www.linkedin.com/in/carlos-jiménez-9a57511ba/" class="sk-pill" style="text-decoration:none; color:var(--accent)">LINKEDIN</a>
-        <a href="https://github.com/carlosjimenezlopez" class="sk-pill" style="text-decoration:none; color:var(--accent)">GITHUB</a>
-        <a href="Video games CV.pdf" class="sk-pill" style="text-decoration:none; color:var(--gold)">DOWNLOAD CV</a>
-    </div>
-</section>
+    <section id="about">
+        <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:60px;">
+            <div>
+                <span class="s-label">// Trayectoria</span>
+                <h2 class="s-title">ESTUDIOS</h2>
+                
+                <div class="timeline">
+                    <div class="tl-item">
+                        <div class="tl-icon">🎓</div>
+                        <div class="tl-content">
+                            <h4>Máster en Diseño de Videojuegos</h4>
+                            <p class="tl-inst">Universidad Europea</p>
+                            <span class="tl-date">Finalizado 2025</span>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-icon">🛠️</div>
+                        <div class="tl-content">
+                            <h4>Doble Grado en Videojuegos e Ingeniería Informática</h4>
+                            <p class="tl-inst">Universidad Rey Juan Carlos</p>
+                            <span class="tl-date">Grado completo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-card); padding:40px; border:1px solid var(--border);">
+                <span class="s-label">// Technical Skills</span>
+                <h3 class="p-title" style="font-size:28px;">STACK TECNOLÓGICO</h3>
+                <div class="stack-group" style="margin-top:30px;">
+                    <div class="stack-item"><strong>Motores:</strong> Unity 3D, Unreal Engine 5</div>
+                    <div class="stack-item"><strong>Lenguajes:</strong> C#, C++, Blueprints</div>
+                    <div class="stack-item"><strong>Diseño:</strong> System Architecture, Level Design, UX Research</div>
+                    <div class="stack-item"><strong>Herramientas:</strong> Git, GitHub, Perforce (básico)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background:linear-gradient(to bottom, var(--bg-deep), #090a0c);">
+        <span class="s-label">// Inbox</span>
+        <h2 class="s-title">START A<br>PROJECT</h2>
+        <a href="mailto:c.jimenezl.2020@alumnos.urjc.es" class="contact-cta glitch-text" data-text="c.jimenezl.2020...">c.jimenezl.2020@alumnos.urjc.es</a>
+        
+        <div style="margin-top:50px; display:flex; gap:20px; font-family:var(--font-mono); font-size:12px;">
+            <a href="https://www.linkedin.com/in/carlos-jiménez-9a57511ba/" style="color:var(--text-muted); text-decoration:none;">LinkedIn</a>
+            <a href="https://github.com/carlosjimenezlopez" style="color:var(--text-muted); text-decoration:none;">GitHub</a>
+            <a href="Video games CV.pdf" style="color:var(--accent-gold); text-decoration:none; font-weight:600;">Descargar CV (PDF)</a>
+        </div>
+    </section>
+</main>
 
 <script>
-    const cur = document.getElementById('cur');
-    const ring = document.getElementById('ring');
-    document.addEventListener('mousemove', (e) => {
-        cur.style.left = e.clientX + 'px';
-        cur.style.top = e.clientY + 'px';
-        ring.style.left = e.clientX + 'px';
-        ring.style.top = e.clientY + 'px';
+    // Sutil efecto de parallax en el fondo al hacer scroll
+    window.addEventListener('scroll', function() {
+        const bg = document.getElementById('parallax-bg');
+        let offset = window.pageYOffset;
+        bg.style.backgroundPositionY = offset * 0.4 + 'px'; // Mueve el fondo más lento que el scroll
+    });
+
+    // Pequeño script para el efecto de glitch cromático en hover sobre los títulos
+    const glitchTexts = document.querySelectorAll('.glitch-text');
+    glitchTexts.forEach(text => {
+        text.addEventListener('mouseover', () => {
+            text.style.textShadow = '2px 0 var(--accent-crimson), -2px 0 #00fff2'; // Efecto rápido de separación cromática
+            setTimeout(() => { text.style.textShadow = 'none'; }, 150); // Dura solo 150ms
+        });
     });
 </script>
 
