@@ -3,273 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlos Jiménez — Architect of Interactive Worlds</title>
+    <title>Carlos Jiménez — Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta: Oscura, Oro, Carmesí */
-            --bg-deep: #0f1114; /* Casi negro, tono pizarra */
-            --bg-card: #16181c;
+            --bg-deep: #0a0c0e;
+            --bg-card: #121418;
             --text-main: #e0e2e6;
             --text-muted: #80868f;
-            --accent-gold: #c5a059; /* Oro viejo/Bronce */
-            --accent-gold-dim: rgba(197, 160, 89, 0.1);
-            --accent-crimson: #a3333d; /* Rojo carmesí para interacciones */
+            --accent-gold: #c5a059;
+            --accent-gold-dim: rgba(197, 160, 89, 0.15);
+            --accent-crimson: #a3333d;
             --border: #2a2e35;
             --font-title: 'Syne', sans-serif;
-            --font-body: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; font-size: 16px; }
-        body { 
-            background-color: var(--bg-deep); 
-            color: var(--text-main); 
-            font-family: var(--font-body); 
-            font-weight: 300; 
-            overflow-x: hidden; 
-            display: flex; /* Para el layout lateral */
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-deep); color: var(--text-main); font-family: 'Inter', sans-serif; overflow-x: hidden; display: flex; }
 
-        /* --- EFECTO NUEVO: FONDO PARALLAX --- */
-        .bg-shapes {
-            position: fixed; inset: 0; z-index: -1;
-            background-image: 
-                radial-gradient(circle at 10% 10%, var(--accent-gold-dim) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(163, 51, 61, 0.05) 0%, transparent 30%);
-            opacity: 0.6;
-        }
-
-        /* --- NAVEGACIÓN LATERAL (CAMBIO DE ESTRUCTURA) --- */
+        /* --- NAVEGACIÓN LATERAL --- */
         nav { 
-            position: fixed; top: 0; left: 0; bottom: 0;
-            width: 260px; background-color: var(--bg-card);
-            border-right: 1px solid var(--border);
-            display: flex; flex-direction: column;
-            padding: 50px 30px; z-index: 1000;
+            position: fixed; top: 0; left: 0; bottom: 0; width: 280px; 
+            background-color: #0d0f11; border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; padding: 40px; z-index: 1000;
         }
-        .nav-header { margin-bottom: 60px; }
-        .nav-logo { font-family: var(--font-title); font-weight: 800; font-size: 28px; color: var(--accent-gold); text-decoration: none; letter-spacing: -1px; }
-        .nav-logo span { color: var(--text-main); }
-        
-        .nav-links { list-style: none; flex: 1; }
-        .nav-links li { margin-bottom: 25px; }
+        .profile-area { text-align: center; margin-bottom: 50px; }
+        .profile-img { 
+            width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--accent-gold); margin-bottom: 15px;
+            box-shadow: 0 0 20px var(--accent-gold-dim);
+        }
+        .nav-logo { font-family: var(--font-title); font-size: 22px; color: #fff; text-decoration: none; }
+        .nav-links { list-style: none; margin-top: 40px; }
+        .nav-links li { margin-bottom: 20px; }
         .nav-links a { 
-            font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-            color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 10px;
-            transition: 0.3s;
+            font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; 
+            color: var(--text-muted); text-decoration: none; letter-spacing: 2px; transition: 0.3s;
         }
-        .nav-links a::before { content: ''; width: 0; height: 1px; background: var(--accent-crimson); transition: width 0.3s; }
-        .nav-links a:hover { color: var(--text-main); padding-left: 10px; }
-        .nav-links a:hover::before { width: 15px; }
+        .nav-links a:hover { color: var(--accent-gold); padding-left: 10px; }
 
-        .nav-footer { font-family: var(--font-mono); font-size: 10px; color: #444; }
+        /* --- CONTENIDO --- */
+        main { flex: 1; margin-left: 280px; width: calc(100% - 280px); }
 
-        /* --- CONTENIDO PRINCIPAL (AJUSTE LAYOUT) --- */
-        main { flex: 1; margin-left: 260px; width: calc(100% - 260px); }
-        section { padding: 100px 80px; border-bottom: 1px solid var(--border); }
-
-        /* --- ESTILOS DE TÍTULOS (NUEVA TIPOGRAFÍA) --- */
-        .s-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 4px; color: var(--accent-gold); margin-bottom: 15px; display: block; }
-        .s-title { font-family: var(--font-title); font-weight: 800; font-size: clamp(40px, 5vw, 65px); line-height: 0.95; color: #fff; letter-spacing: -2px; }
-        
-        /* --- HERO SECTION --- */
-        #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
-        .hero-statement { max-width: 800px; margin-top: 40px; font-size: 19px; line-height: 1.8; color: var(--text-muted); }
-        .hero-statement strong { color: var(--text-main); font-weight: 600; }
-        .hero-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 50px; }
-        .chip { padding: 8px 18px; border: 1px solid var(--border); font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold); text-transform: uppercase; background: rgba(255,255,255,0.01); }
-
-        /* --- PROYECTOS (ESTILO TARJETA REVISADO) --- */
-        .project-featured { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; margin-top: 80px; }
-        .p-media { aspect-ratio: 16/10; background: #000; border-radius: 4px; overflow: hidden; border: 1px solid var(--border); position: relative; }
-        .p-media img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
-        .p-media:hover img { opacity: 1; transform: scale(1.03); }
-        .p-tag { position: absolute; top: 15px; right: 15px; font-family: var(--font-mono); font-size: 9px; color: #000; background: var(--accent-gold); padding: 4px 10px; }
-        
-        .p-title { font-family: var(--font-title); font-weight: 600; font-size: 36px; color: #fff; margin-bottom: 20px; letter-spacing: -1px; }
-        .p-desc { color: var(--text-muted); line-height: 1.9; font-size: 15px; margin-bottom: 30px; }
-        .btn-link { font-family: var(--font-mono); font-size: 11px; color: var(--accent-crimson); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; transition: 0.3s; }
-        .btn-link:hover { color: var(--text-main); padding-left: 5px; }
-
-        .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 80px; }
-        .project-card { background: var(--bg-card); padding: 40px; border: 1px solid var(--border); transition: 0.3s; }
-        .project-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
-
-        /* --- ESTUDIOS (NUEVO ESTILO TIMELINE) --- */
-        .timeline { margin-top: 60px; max-width: 800px; }
-        .tl-item { display: flex; gap: 30px; margin-bottom: 40px; position: relative; }
-        .tl-item::before { content: ''; position: absolute; left: 22px; top: 40px; bottom: -40px; width: 1px; background: var(--border); }
-        .tl-item:last-child::before { display: none; }
-        
-        .tl-icon { width: 45px; height: 45px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent-gold); flex-shrink: 0; z-index: 2; }
-        .tl-content h4 { font-family: var(--font-title); font-size: 20px; color: #fff; margin-bottom: 5px; }
-        .tl-inst { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
-        .tl-date { font-family: var(--font-mono); font-size: 10px; color: var(--accent-gold); background: var(--accent-gold-dim); padding: 3px 8px; display: inline-block; }
-
-        /* --- CONTACTO & STACK (ORO & ROJO) --- */
-        .stack-group { margin-top: 20px; }
-        .stack-item { display: inline-block; font-family: var(--font-mono); font-size: 12px; color: var(--text-main); margin-right: 15px; margin-bottom: 10px; }
-        .stack-item strong { color: var(--accent-gold); font-weight: 400; }
-
-        .contact-cta { font-family: var(--font-title); font-weight: 800; font-size: clamp(30px, 4vw, 50px); color: var(--text-main); text-decoration: none; transition: 0.3s; display: inline-block; margin-top: 20px; letter-spacing: -2px;}
-        .contact-cta:hover { color: var(--accent-crimson); transform: skewX(-5deg); }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1100px) {
-            nav { width: 70px; padding: 30px 15px; align-items: center; }
-            .nav-header, .nav-links a span, .nav-footer { display: none; }
-            .nav-logo { font-size: 20px; }
-            main { margin-left: 70px; width: calc(100% - 70px); }
-            section { padding: 60px 30px; }
-            .project-featured { grid-template-columns: 1fr; gap: 30px; }
+        /* --- SLIDER DE PROYECTOS --- */
+        #projects { position: relative; height: 100vh; overflow: hidden; background: #000; }
+        .slider-container { display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1); }
+        .slide { 
+            min-width: 100%; height: 100%; position: relative; 
+            display: flex; align-items: flex-end; padding: 80px;
         }
-        @media (max-width: 700px) {
-            .projects-grid { grid-template-columns: 1fr; }
+        .slide-bg { 
+            position: absolute; inset: 0; width: 100%; height: 100%; 
+            object-fit: cover; opacity: 0.5; z-index: 1; 
+        }
+        .slide-content { position: relative; z-index: 2; max-width: 700px; }
+        .slide-tag { font-family: var(--font-mono); color: var(--accent-gold); font-size: 12px; margin-bottom: 10px; display: block; }
+        .slide-title { font-family: var(--font-title); font-size: 60px; line-height: 1; margin-bottom: 20px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        
+        .btn-detail { 
+            padding: 15px 30px; border: 1px solid var(--accent-gold); color: var(--accent-gold);
+            font-family: var(--font-mono); text-transform: uppercase; font-size: 11px; 
+            background: transparent; cursor: pointer; transition: 0.3s;
+        }
+        .btn-detail:hover { background: var(--accent-gold); color: #000; }
+
+        /* Controles Slider */
+        .slider-nav { position: absolute; bottom: 40px; right: 40px; z-index: 10; display: flex; gap: 20px; }
+        .nav-arrow { 
+            width: 50px; height: 50px; border: 1px solid var(--border); 
+            display: flex; align-items: center; justify-content: center; 
+            color: #fff; cursor: pointer; transition: 0.3s;
+        }
+        .nav-arrow:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        /* --- PANEL DESPLEGABLE (DRAWER) --- */
+        .details-drawer {
+            position: fixed; top: 0; right: -100%; width: 500px; height: 100vh;
+            background: var(--bg-card); border-left: 1px solid var(--border);
+            z-index: 2000; padding: 60px 40px; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+        }
+        .details-drawer.open { right: 0; }
+        .close-drawer { position: absolute; top: 30px; left: 40px; color: var(--accent-gold); cursor: pointer; font-family: var(--font-mono); font-size: 11px; }
+        .drawer-title { font-family: var(--font-title); font-size: 32px; margin-bottom: 30px; color: var(--accent-gold); }
+        .drawer-work-box { 
+            background: rgba(255,255,255,0.03); border: 1px dashed var(--border); 
+            padding: 25px; margin-top: 20px; color: var(--text-muted); line-height: 1.8;
+        }
+
+        /* --- SECCIÓN CONTACTO Y CV --- */
+        #contact { padding: 100px 80px; text-align: center; }
+        .big-links { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; 
+            max-width: 900px; margin: 60px auto; 
+        }
+        .action-card { 
+            padding: 50px; border: 1px solid var(--border); background: var(--bg-card);
+            text-decoration: none; transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .action-card h3 { font-family: var(--font-title); font-size: 24px; color: #fff; margin-bottom: 10px; }
+        .action-card p { font-family: var(--font-mono); font-size: 11px; color: var(--accent-gold); text-transform: uppercase; }
+        .action-card:hover { border-color: var(--accent-gold); transform: translateY(-10px); }
+        .action-card::after { 
+            content: '→'; position: absolute; bottom: 20px; right: 20px; 
+            font-size: 24px; color: var(--accent-gold); opacity: 0; transition: 0.3s;
+        }
+        .action-card:hover::after { opacity: 1; right: 30px; }
+
+        @media (max-width: 900px) {
+            nav { width: 100%; height: auto; position: relative; padding: 20px; }
+            main { margin-left: 0; width: 100%; }
+            .details-drawer { width: 100%; }
+            .big-links { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-shapes" id="parallax-bg"></div>
-
 <nav>
-    <div class="nav-header">
-        <a href="#" class="nav-logo"><span>C</span>JL</a>
-        <div style="font-family:var(--font-mono); font-size:9px; color:var(--text-muted); margin-top:5px;">Architect of Interactive Worlds</div>
+    <div class="profile-area">
+        <img src="Images/PersonalPhoto.png" alt="Carlos Jiménez" class="profile-img">
+        <a href="#" class="nav-logo">CARLOS <span>JIMÉNEZ</span></a>
     </div>
     <ul class="nav-links">
-        <li><a href="#hero"><span>Inicio</span></a></li>
-        <li><a href="#projects"><span>Proyectos</span></a></li>
-        <li><a href="#about"><span>Perfil</span></a></li>
-        <li><a href="#contact"><span>Contacto</span></a></li>
+        <li><a href="#projects">Portafolio</a></li>
+        <li><a href="#about">Experiencia</a></li>
+        <li><a href="#contact">Contacto</a></li>
     </ul>
-    <div class="nav-footer">
-        © 2026 / CJL
-    </div>
 </nav>
 
 <main>
-    <section id="hero">
-        <span class="s-label">// System Designer & Engineer</span>
-        <h1 class="s-title glitch-text" data-text="CARLOS JIMÉNEZ">CARLOS JIMÉNEZ</h1>
-        <p class="hero-statement">
-            Ingeniero Informático y Diseñador de Videojuegos enfocado en la <strong>arquitectura de sistemas de juego complejos</strong> y mecánicas inmersivas. Formación avanzada en la URJC y la Universidad Europea.
-        </p>
-        <div class="hero-chips">
-            <span class="chip">Unity 3D / C#</span>
-            <span class="chip">UE5 / Blueprints</span>
-            <span class="chip">System Architecture</span>
-            <span class="chip">UX Research</span>
-        </div>
-    </section>
-
     <section id="projects">
-        <span class="s-label">// Portafolio Seleccionado</span>
-        <h2 class="s-title">SELECTED WORKS</h2>
-
-        <div class="project-featured">
-            <div class="p-media">
-                <img src="Images/AceVoyageMenu.jpeg" alt="Ace Voyage">
-                <span class="p-tag">Acción-Puzzle</span>
-            </div>
-            <div class="p-content">
-                <h3 class="p-title">Ace Voyage</h3>
-                <p class="p-desc">
-                    Diseño y desarrollo completo de una aventura donde la progresión se basa en la recuperación de mecánicas sistémicas. Explora biomas hostiles y repara tu nave.
-                </p>
-                <div style="display:flex; gap:20px;">
-                    <a href="https://chupchupstudios.itch.io/ace-voyage" class="btn-link">🎮 Jugar</a>
-                    <a href="https://github.com/carlosjimenezlopez/ace-voyage" class="btn-link">💻 Código</a>
+        <div class="slider-container" id="slider">
+            
+            <div class="slide">
+                <img src="Images/AceVoyageMenu.jpeg" class="slide-bg" alt="Ace Voyage">
+                <div class="slide-content">
+                    <span class="slide-tag">// 01 — Acción & Puzzle</span>
+                    <h2 class="slide-title">ACE VOYAGE</h2>
+                    <button class="btn-detail" onclick="openDrawer('Ace Voyage', 'Aquí escribes tus responsabilidades: p.ej. Diseño de niveles, balanceo de enemigos, arquitectura de sistemas en C#...')">Ver Detalles</button>
                 </div>
             </div>
+
+            <div class="slide">
+                <img src="Images/SkullBound1.png" class="slide-bg" alt="BraveSkull">
+                <div class="slide-content">
+                    <span class="slide-tag">// 02 — First-Person Puzzle</span>
+                    <h2 class="slide-title">BRAVESKULL</h2>
+                    <button class="btn-detail" onclick="openDrawer('BraveSkull', 'Escribe aquí de qué te encargaste en este proyecto...')">Ver Detalles</button>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="Images/PrehistoricTrial1.png" class="slide-bg" alt="Prehistoric Trial">
+                <div class="slide-content">
+                    <span class="slide-tag">// 03 — Serious Game / Research</span>
+                    <h2 class="slide-title">PREHISTORIC TRIAL</h2>
+                    <button class="btn-detail" onclick="openDrawer('Prehistoric Trial', 'Escribe aquí de qué te encargaste en este proyecto...')">Ver Detalles</button>
+                </div>
+            </div>
+
         </div>
 
-        <div class="projects-grid">
-            <div class="project-card">
-                <span class="p-tag" style="position:static; display:inline-block; margin-bottom:15px;">Fantasía Oscura</span>
-                <h3 class="p-title" style="font-size:26px;">BraveSkull: Sealbound</h3>
-                <p class="p-desc" style="font-size:14px;">First-person puzzle enfocado en la manipulación física mediante runas. Arquitectura de puzles basados en tamaño, tiempo y gravedad.</p>
-                <span style="font-family:var(--font-mono); font-size:11px; color:var(--accent-crimson);">Lanzamiento Sept. 2026</span>
-            </div>
-            <div class="project-card">
-                <span class="p-tag" style="position:static; display:inline-block; margin-bottom:15px;">Serious Game</span>
-                <h3 class="p-title" style="font-size:26px;">Prehistoric Trial</h3>
-                <p class="p-desc" style="font-size:14px;">Investigación e implementación de "Stealth Assessment" para la evaluación psicológica orgánica de estudiantes.</p>
-                <a href="https://github.com/CarlosJimenezLopez/TFG-Bullying" class="btn-link">Repositorio →</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:60px;">
-            <div>
-                <span class="s-label">// Trayectoria</span>
-                <h2 class="s-title">ESTUDIOS</h2>
-                
-                <div class="timeline">
-                    <div class="tl-item">
-                        <div class="tl-icon">🎓</div>
-                        <div class="tl-content">
-                            <h4>Máster en Diseño de Videojuegos</h4>
-                            <p class="tl-inst">Universidad Europea</p>
-                            <span class="tl-date">Finalizado 2025</span>
-                        </div>
-                    </div>
-                    <div class="tl-item">
-                        <div class="tl-icon">🛠️</div>
-                        <div class="tl-content">
-                            <h4>Doble Grado en Videojuegos e Ingeniería Informática</h4>
-                            <p class="tl-inst">Universidad Rey Juan Carlos</p>
-                            <span class="tl-date">Grado completo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="background:var(--bg-card); padding:40px; border:1px solid var(--border);">
-                <span class="s-label">// Technical Skills</span>
-                <h3 class="p-title" style="font-size:28px;">STACK TECNOLÓGICO</h3>
-                <div class="stack-group" style="margin-top:30px;">
-                    <div class="stack-item"><strong>Motores:</strong> Unity 3D, Unreal Engine 5</div>
-                    <div class="stack-item"><strong>Lenguajes:</strong> C#, C++, Blueprints</div>
-                    <div class="stack-item"><strong>Diseño:</strong> System Architecture, Level Design, UX Research</div>
-                    <div class="stack-item"><strong>Herramientas:</strong> Git, GitHub, Perforce (básico)</div>
-                </div>
-            </div>
+        <div class="slider-nav">
+            <div class="nav-arrow" onclick="moveSlider(-1)">←</div>
+            <div class="nav-arrow" onclick="moveSlider(1)">→</div>
         </div>
     </section>
 
-    <section id="contact" style="background:linear-gradient(to bottom, var(--bg-deep), #090a0c);">
-        <span class="s-label">// Inbox</span>
-        <h2 class="s-title">START A<br>PROJECT</h2>
-        <a href="mailto:c.jimenezl.2020@alumnos.urjc.es" class="contact-cta glitch-text" data-text="c.jimenezl.2020...">c.jimenezl.2020@alumnos.urjc.es</a>
+    <section id="contact">
+        <span style="font-family:var(--font-mono); color:var(--accent-gold); letter-spacing:3px;">GET IN TOUCH</span>
+        <h2 style="font-family:var(--font-title); font-size:50px; margin-top:10px;">CONECTEMOS</h2>
         
-        <div style="margin-top:50px; display:flex; gap:20px; font-family:var(--font-mono); font-size:12px;">
-            <a href="https://www.linkedin.com/in/carlos-jiménez-9a57511ba/" style="color:var(--text-muted); text-decoration:none;">LinkedIn</a>
-            <a href="https://github.com/carlosjimenezlopez" style="color:var(--text-muted); text-decoration:none;">GitHub</a>
-            <a href="Video games CV.pdf" style="color:var(--accent-gold); text-decoration:none; font-weight:600;">Descargar CV (PDF)</a>
+        <div class="big-links">
+            <a href="https://www.linkedin.com/in/carlos-jiménez-9a57511ba/" target="_blank" class="action-card">
+                <h3>LINKEDIN</h3>
+                <p>Ver Perfil Profesional</p>
+            </a>
+            <a href="Video games CV.pdf" target="_blank" class="action-card" style="border-color: var(--accent-gold);">
+                <h3 style="color:var(--accent-gold)">CURRICULUM VITAE</h3>
+                <p>Descargar Dossier PDF</p>
+            </a>
         </div>
+        
+        <a href="mailto:c.jimenezl.2020@alumnos.urjc.es" style="color:var(--text-muted); text-decoration:none; font-family:var(--font-mono);">c.jimenezl.2020@alumnos.urjc.es</a>
     </section>
 </main>
 
-<script>
-    // Sutil efecto de parallax en el fondo al hacer scroll
-    window.addEventListener('scroll', function() {
-        const bg = document.getElementById('parallax-bg');
-        let offset = window.pageYOffset;
-        bg.style.backgroundPositionY = offset * 0.4 + 'px'; // Mueve el fondo más lento que el scroll
-    });
+<div class="details-drawer" id="drawer">
+    <span class="close-drawer" onclick="closeDrawer()">[ CERRAR ]</span>
+    <h3 class="drawer-title" id="drawer-title">Proyecto</h3>
+    <div class="s-label">// Mis Tareas y Responsabilidades</div>
+    <div class="drawer-work-box" id="drawer-content">
+        </div>
+</div>
 
-    // Pequeño script para el efecto de glitch cromático en hover sobre los títulos
-    const glitchTexts = document.querySelectorAll('.glitch-text');
-    glitchTexts.forEach(text => {
-        text.addEventListener('mouseover', () => {
-            text.style.textShadow = '2px 0 var(--accent-crimson), -2px 0 #00fff2'; // Efecto rápido de separación cromática
-            setTimeout(() => { text.style.textShadow = 'none'; }, 150); // Dura solo 150ms
-        });
-    });
+<script>
+    // LÓGICA DEL SLIDER
+    let currentSlide = 0;
+    const slider = document.getElementById('slider');
+    const totalSlides = 3;
+
+    function moveSlider(direction) {
+        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // Auto-play cada 6 segundos
+    let autoPlay = setInterval(() => moveSlider(1), 6000);
+
+    // Resetear auto-play al interactuar
+    function resetTimer() {
+        clearInterval(autoPlay);
+        autoPlay = setInterval(() => moveSlider(1), 6000);
+    }
+
+    // LÓGICA DEL PANEL DE DETALLES
+    function openDrawer(title, content) {
+        document.getElementById('drawer-title').innerText = title;
+        document.getElementById('drawer-content').innerText = content;
+        document.getElementById('drawer').classList.add('open');
+    }
+
+    function closeDrawer() {
+        document.getElementById('drawer').classList.remove('open');
+    }
 </script>
 
 </body>
