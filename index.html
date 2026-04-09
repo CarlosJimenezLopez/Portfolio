@@ -265,11 +265,12 @@
     }
 
     // DETAILS DRAWER LOGIC
-    function openDrawer(title, content) {
-        document.getElementById('drawer-title').innerText = title;
-        document.getElementById('drawer-content').innerText = content;
-        document.getElementById('drawer').classList.add('open');
-    }
+function openDrawer(title, content) {
+    document.getElementById('drawer-title').innerText = title;
+    // CAMBIA ESTA LÍNEA: de .innerText a .innerHTML
+    document.getElementById('drawer-content').innerHTML = content; 
+    document.getElementById('drawer').classList.add('open');
+}
 
     function closeDrawer() {
         document.getElementById('drawer').classList.remove('open');
